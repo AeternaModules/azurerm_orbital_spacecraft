@@ -1,0 +1,20 @@
+resource "azurerm_orbital_spacecraft" "orbital_spacecrafts" {
+  for_each = var.orbital_spacecrafts
+
+  location            = each.value.location
+  name                = each.value.name
+  norad_id            = each.value.norad_id
+  resource_group_name = each.value.resource_group_name
+  title_line          = each.value.title_line
+  two_line_elements   = each.value.two_line_elements
+  tags                = each.value.tags
+
+  links {
+    bandwidth_mhz        = each.value.links.bandwidth_mhz
+    center_frequency_mhz = each.value.links.center_frequency_mhz
+    direction            = each.value.links.direction
+    name                 = each.value.links.name
+    polarization         = each.value.links.polarization
+  }
+}
+
