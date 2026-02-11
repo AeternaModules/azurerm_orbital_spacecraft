@@ -9,12 +9,15 @@ resource "azurerm_orbital_spacecraft" "orbital_spacecrafts" {
   two_line_elements   = each.value.two_line_elements
   tags                = each.value.tags
 
-  links {
-    bandwidth_mhz        = each.value.links.bandwidth_mhz
-    center_frequency_mhz = each.value.links.center_frequency_mhz
-    direction            = each.value.links.direction
-    name                 = each.value.links.name
-    polarization         = each.value.links.polarization
+  dynamic "links" {
+    for_each = each.value.links
+    content {
+      bandwidth_mhz        = links.value.bandwidth_mhz
+      center_frequency_mhz = links.value.center_frequency_mhz
+      direction            = links.value.direction
+      name                 = links.value.name
+      polarization         = links.value.polarization
+    }
   }
 }
 

@@ -26,13 +26,21 @@ EOT
     title_line          = string
     two_line_elements   = list(string)
     tags                = optional(map(string))
-    links = object({
+    links = list(object({
       bandwidth_mhz        = number
       center_frequency_mhz = number
       direction            = string
       name                 = string
       polarization         = string
-    })
+    }))
   }))
+  validation {
+    condition = alltrue([
+      for k, v in var.orbital_spacecrafts : (
+        length(v.links) >= 1
+      )
+    ])
+    error_message = "Each links list must contain at least 1 items"
+  }
 }
 
