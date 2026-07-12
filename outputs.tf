@@ -1,3 +1,7 @@
+output "orbital_spacecrafts_id" {
+  description = "Map of id values across all orbital_spacecrafts, keyed the same as var.orbital_spacecrafts"
+  value       = { for k, v in azurerm_orbital_spacecraft.orbital_spacecrafts : k => v.id }
+}
 output "orbital_spacecrafts_links" {
   description = "Map of links values across all orbital_spacecrafts, keyed the same as var.orbital_spacecrafts"
   value       = { for k, v in azurerm_orbital_spacecraft.orbital_spacecrafts : k => v.links }
